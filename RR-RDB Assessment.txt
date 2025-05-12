@@ -1,0 +1,32 @@
+SELECT COUNT(*) FROM users;
+SELECT email_domain, COUNT(*) FROM users 
+WHERE email_domain LIKE '%.edu'
+GROUP BY email_domain
+ORDER BY COUNT(*) DESC
+LIMIT 25;
+
+SELECT COUNT(*) FROM users 
+WHERE email_domain LIKE '%.edu' 
+  AND country = 'US' 
+  AND postal LIKE 'NY%';
+  
+SELECT COUNT(*) FROM users 
+WHERE mobile_app = 'mobile-user';
+
+SELECT sign_up_at,
+   strftime('%S', sign_up_at) FROM users
+GROUP BY 1
+LIMIT 25;
+
+SELECT email_domain,
+       AVG(learn_cpp), AVG(learn_sql), AVG(learn_html), AVG(learn_javascript), AVG(learn_java)
+FROM users
+JOIN progress USING (user_id) WHERE email_domain LIKE '%.edu'
+GROUP BY email_domain
+LIMIT 25;
+
+SELECT AVG(learn_cpp), AVG(learn_sql), AVG(learn_html), AVG(learn_javascript), AVG(learn_java)
+FROM users JOIN progress USING (user_id) WHERE postal LIKE '10%';
+
+SELECT AVG(learn_cpp), AVG(learn_sql), AVG(learn_html), AVG(learn_javascript), AVG(learn_java)
+FROM users JOIN progress USING (user_id) WHERE postal LIKE '606%';
